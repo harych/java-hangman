@@ -82,12 +82,11 @@ public class Hangman {
     		String letter = scanner.nextLine().toUpperCase();
     		if (checkLetter(letter,randomWord)) {
     			maskedWord = showNextLetter(letter, maskedWord, randomWord);
-    			System.out.println(maskedWord); // do usuniecia
     			isWinner = isWinner(randomWord, maskedWord);
-    			//print(maskedWord, HANGMANPICS[move]);
+    			
+    			Print.print(maskedWord, HANGMANPICS[move]);
     		} else {
-    			System.out.println(HANGMANPICS[move]); // do usuniecia
-    			//print(maskedWord, HANGMANPICS[move]);
+    			Print.print(maskedWord, HANGMANPICS[move]);
     			move++;
     		}
     	}
