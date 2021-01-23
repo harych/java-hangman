@@ -1,5 +1,6 @@
 package pl.edu.agh.hangman;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Hangman {
@@ -15,14 +16,14 @@ public class Hangman {
 			"  +---+\n" + "  |   |\n" + "  O   |\n" + " /|\\  |\n" + " /    |\n" + "      |\n" + "=========",
 			"  +---+\n" + "  |   |\n" + "  O   |\n" + " /|\\  |\n" + " / \\  |\n" + "      |\n" + "========" };
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 
 		Scanner scanner = new Scanner(System.in);
 		boolean gameOn = true;
 
 		while (gameOn) {
-			//RandomWord rw = new RandomWord();
-			playHangman("JAVA");//rw.drawWord());
+			RandomWord rw = new RandomWord();
+			playHangman(rw.drawWord());
 			System.out.println("Type 'Y' if you want to play again");
 			if (scanner.nextLine() != "Y") {
 				gameOn = false;
@@ -32,12 +33,13 @@ public class Hangman {
 
 	private static void playHangman(String randomWord) {
 		int move = 0;
+		randomWord = randomWord.toUpperCase();
 		String maskedWord = maskWord(randomWord);
 		Scanner scanner = new Scanner(System.in);
 		boolean isWinner = false;
-		System.out.println("The word you are looking for has " + randomWord.length() + " letters");
+		System.out.println("The word you are looking for has " + randomWord.length() + " letters...");
 		while (move < NUMBER_OF_MOVES - 1 && !isWinner) {
-			System.out.println("Guess a letter:");
+			System.out.print("Guess a letter > ");
 			try {
 				String letter = scanner.next().toUpperCase();
 				if (!correctInput(letter)) {
@@ -45,21 +47,17 @@ public class Hangman {
 				}
 				if (checkLetter(letter, randomWord)) {
 					maskedWord = showNextLetter(letter, maskedWord, randomWord);
-					//System.out.println(maskedWord); // do usuniecia
 					isWinner = maskedWord.equals(randomWord);
 					Print.print(maskedWord, HANGMANPICS[move]);
 				} else {
 					move++;
 					Print.print(maskedWord, HANGMANPICS[move]);
-					//System.out.println(HANGMANPICS[move]); // do usuniecia
-
 				}
 			} catch (Exception e) {
 				System.out.println("Incorrect input");
 			}
 		}
-		//Print.printMessage(isWinner);
-		//System.out.println("Winner: " + isWinner);
+		Print.printMessage(isWinner, randomWord);
 	}
 
 	private static boolean checkLetter(String letter, String word) {

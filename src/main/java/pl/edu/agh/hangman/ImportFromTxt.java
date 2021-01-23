@@ -7,34 +7,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ImportFromTxt {
-	
-	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-	File txt = new File(classLoader.getResource("slowa.txt").getFile());
-	
-	public ArrayList<String> getWordsList () throws FileNotFoundException {
-		
+
+	File txt = new File("src/main/resources/slowa.txt");
+
+	public ArrayList<String> getWordsList() throws FileNotFoundException {
+
 		Scanner scanner = new Scanner(txt);
 		ArrayList<String> words = new ArrayList<String>();
-	
-		while(scanner.nextLine() != null) {
-		
-		words.add(scanner.nextLine());
-		
+		String word = new String();
+
+		while (scanner.hasNext()) {
+			word = scanner.nextLine();
+			if (!word.contains(" ")) {
+				words.add(scanner.nextLine());
+			}
 		}
-		
+
 		return words;
-		
+
 	}
-
-
-	public static void main(String[] args) throws FileNotFoundException  {
-
-
-		ImportFromTxt abc = new ImportFromTxt();
-		ArrayList<String> lala =  abc.getWordsList();
-		System.out.println(lala.toString());
-	
-     				
-    }
-
 }
