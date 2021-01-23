@@ -21,7 +21,8 @@ public class Hangman {
 		boolean gameOn = true;
 
 		while (gameOn) {
-			playHangman("JAVA"); // klasa random uzyta tutaj
+			//RandomWord rw = new RandomWord();
+			playHangman("JAVA");//rw.drawWord());
 			System.out.println("Type 'Y' if you want to play again");
 			if (scanner.nextLine() != "Y") {
 				gameOn = false;
@@ -31,10 +32,10 @@ public class Hangman {
 
 	private static void playHangman(String randomWord) {
 		int move = 0;
-		randomWord = randomWord.toUpperCase();
 		String maskedWord = maskWord(randomWord);
 		Scanner scanner = new Scanner(System.in);
 		boolean isWinner = false;
+		System.out.println("The word you are looking for has " + randomWord.length() + " letters");
 		while (move < NUMBER_OF_MOVES - 1 && !isWinner) {
 			System.out.println("Guess a letter:");
 			try {
@@ -57,7 +58,8 @@ public class Hangman {
 				System.out.println("Incorrect input");
 			}
 		}
-		System.out.println("Winner: " + isWinner);
+		//Print.printMessage(isWinner);
+		//System.out.println("Winner: " + isWinner);
 	}
 
 	private static boolean checkLetter(String letter, String word) {
